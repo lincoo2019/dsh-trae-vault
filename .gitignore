@@ -1,0 +1,16 @@
+# Nothing here is generated, but a checkout collects these while it is used.
+
+# Frames the activation log is written to, and the trace itself.
+trae-session-vault.activation.log
+*.log
+
+# A project that has this plugin enabled grows an archive next to its code; a
+# clone used as a scratch project will produce one.
+.dsh/
+
+# Editor and OS noise.
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

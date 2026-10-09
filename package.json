@@ -1,0 +1,51 @@
+{
+  "name": "@local/dsh-trae-vault",
+  "version": "1.4.0",
+  "type": "module",
+  "description": "DeepSeek Harness bundle: Trae SKILL.md skill provider, a project-local conversation vault, publishing archives back as resumable sessions, and importing shared Trae conversations.",
+  "license": "MIT",
+  "author": "Sun Shuang (lincoo2019)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lincoo2019/dsh-trae-vault.git"
+  },
+  "homepage": "https://github.com/lincoo2019/dsh-trae-vault#readme",
+  "bugs": {
+    "url": "https://github.com/lincoo2019/dsh-trae-vault/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "trae",
+    "plugin",
+    "bundle",
+    "session",
+    "skills"
+  ],
+  "icon": "./icon.svg",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "files": [
+    "index.js",
+    "impl.r*.js",
+    "lib/*.js",
+    "locale/*.json",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "meta": {
+    "title": "Trae Skills & Session Vault",
+    "description": "Invokes SKILL.md skills from your Trae .trae/skills folders, archives each Harness conversation into the project folder, publishes those archives back as real resumable sessions, and imports shared Trae conversations as sessions of this project."
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

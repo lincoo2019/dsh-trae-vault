@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Trae Skills and Session Vault">
+  <rect x="4" y="10" width="56" height="44" rx="8" fill="#1f6feb"/>
+  <path d="M20 24h24v4H20zm0 8h24v4H20zm0 8h14v4H20z" fill="#ffffff" opacity="0.92"/>
+  <circle cx="46" cy="42" r="7" fill="#ffd33d"/>
+  <path d="M43 42l2.4 2.4L49.5 40" fill="none" stroke="#3b2f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

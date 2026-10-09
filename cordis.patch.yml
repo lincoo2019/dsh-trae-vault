@@ -1,0 +1,50 @@
+# Inserts this bundle's Host rows into the composed dsh profile.
+# One plugin owns four capabilities:
+#   1. the `trae` skill provider (SKILL.md folders written for Trae)
+#   2. the project-local conversation vault plus its agent tools
+#   3. publishing archived conversations back as real, resumable DSH sessions
+#   4. importing a shared Trae conversation (share.traecontent.cn) as a session
+- insert:
+    - id: trae-vault
+      name: '@local/dsh-trae-vault'
+      config:
+        enabled: true
+        # Activation checkpoints. Empty uses $DSH_HOME/trae-session-vault.activation.log.
+        # The trace exists because a throw during activation reaches only the Host
+        # console, which the Desktop build does not expose. An unwritable path is
+        # swallowed, so a stale value costs you the trace rather than the plugin.
+        debugLog: ''
+        skills:
+          enabled: true
+          providerName: trae
+          customDirs: []
+          scanUserHome: true
+          watch: true
+        vault:
+          enabled: true
+          directory: .dsh/conversations
+          autoExport: true
+          includeRuntimeContext: false
+          maxToolResultChars: 2000
+          readGlobalSessions: true
+          # Materialize archived conversations as real DSH sessions, so the
+          # workspace sidebar lists them and they can be resumed. This writes
+          # into DSH's own session store. Publication is idempotent: the target
+          # id is derived from the source conversation.
+          autoImport: true
+        share:
+          # Import a conversation shared from Trae (a
+          # https://share.traecontent.cn/share/<id> link) into this project.
+          # `conversation_import_share` is the only tool that reaches the network.
+          enabled: true
+          # The API origin, and the host share links are cited from. Point it at
+          # a mirror or enterprise deployment if Trae is not reached directly.
+          apiBase: https://share.traecontent.cn
+          timeoutMs: 30000
+          # Publish each imported conversation as soon as it is archived, so one
+          # call is enough for it to appear in the sidebar.
+          autoPublish: true
+          # The agent preset an imported session runs under. A share records
+          # none, and a session without one opens but cannot be continued.
+          agentPreset: standard
+          maxToolResultChars: 2000

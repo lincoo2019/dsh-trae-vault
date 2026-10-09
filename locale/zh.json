@@ -1,0 +1,4 @@
+{
+    "title":  "Trae 技能与会话仓库",
+    "description":  "调用 Trae 的 .trae/skills 目录中的 SKILL.md 技能，把 DeepSeek Harness 对话归档到项目文件夹并可在需要时重新发布为可继续的会话，还能把 Trae 分享链接（share.traecontent.cn）中的对话导入到当前项目。"
+}

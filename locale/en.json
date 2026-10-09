@@ -1,0 +1,4 @@
+{
+  "title": "Trae Skills & Session Vault",
+  "description": "Invokes SKILL.md skills from your Trae .trae/skills folders, archives each Harness conversation into the project folder, publishes those archives back as resumable sessions, and imports shared Trae conversations (share.traecontent.cn links) into the project."
+}

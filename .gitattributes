@@ -1,0 +1,9 @@
+# Normalize line endings in the repository so a Windows checkout does not
+# rewrite every file. Plugins are loaded by DSH as ES modules on any platform;
+# consistent LF keeps diffs and hashes stable.
+* text=auto eol=lf
+
+# Binary-ish assets must never be touched.
+*.svg text
+*.png binary
+*.jpg binary
