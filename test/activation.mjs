@@ -13,19 +13,23 @@ import { createHash } from 'node:crypto';
 /**
  * The package under test, as a module URL.
  *
- * DSH loads a bundle by absolute path, so this test does too. Three layouts have
- * to work, and the test must not depend on which one it is in:
+ * DSH loads a bundle by absolute path, so this test does too. The package root is
+ * always this file's parent, so that is the anchor — and the other two candidates
+ * exist because `apply()` is meant to be exercised the way a caller reaches it:
+ * from inside the package, and from the directory that contains it.
  *
- *   - run from the package itself (the usual way, and the only way from a clone);
- *   - run from the directory that *contains* the package, as DSH addresses it
- *     (`node dsh-trae-vault/test/activation.mjs` from the parent);
- *   - a development checkout that keeps the package one level down in a sibling
- *     folder, which is the layout this plugin was originally built in and the
- *     reason `process.cwd()` alone was the wrong anchor.
+ *   - `<package>/`            `node test/activation.mjs`
+ *   - `<parent>/<any name>/`  `node <name>/test/activation.mjs`, which is how DSH
+ *                             addresses a bundle and does not depend on the
+ *                             folder being called `dsh-trae-vault`
+ *   - the development checkout this plugin was built in, which keeps the package
+ *     one level down in a folder of its own — the layout that made a bare
+ *     `process.cwd()` the wrong anchor in the first place.
  */
+const packageRoot = join(import.meta.dirname, '..');
 const candidates = [
+  packageRoot,
   process.cwd(),
-  join(process.cwd(), 'dsh-trae-vault'),
   join(process.cwd(), '.dsh-plugin-dev', 'dsh-trae-session-vault'),
 ];
 const packageDir = candidates.find((candidate) => existsSync(join(candidate, 'index.js')));
