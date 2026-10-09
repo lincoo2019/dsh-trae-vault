@@ -13,17 +13,24 @@ import { createHash } from 'node:crypto';
 /**
  * The package under test, as a module URL.
  *
- * DSH loads a bundle by absolute path, so this test does too. It works both from
- * a standalone clone (where the package is this file's parent) and from a
- * development checkout that keeps the package in a sibling directory — the shape
- * the plugin was built in, and the shape that made `process.cwd()` the wrong
- * anchor.
+ * DSH loads a bundle by absolute path, so this test does too. Three layouts have
+ * to work, and the test must not depend on which one it is in:
+ *
+ *   - run from the package itself (the usual way, and the only way from a clone);
+ *   - run from the directory that *contains* the package, as DSH addresses it
+ *     (`node dsh-trae-vault/test/activation.mjs` from the parent);
+ *   - a development checkout that keeps the package one level down in a sibling
+ *     folder, which is the layout this plugin was originally built in and the
+ *     reason `process.cwd()` alone was the wrong anchor.
  */
-const packageDir = existsSync(join(process.cwd(), 'index.js'))
-  ? process.cwd()
-  : join(process.cwd(), '.dsh-plugin-dev', 'dsh-trae-session-vault');
-if (!existsSync(join(packageDir, 'index.js'))) {
-  throw new Error(`cannot find the package: run this from the directory that contains it (tried ${packageDir})`);
+const candidates = [
+  process.cwd(),
+  join(process.cwd(), 'dsh-trae-vault'),
+  join(process.cwd(), '.dsh-plugin-dev', 'dsh-trae-session-vault'),
+];
+const packageDir = candidates.find((candidate) => existsSync(join(candidate, 'index.js')));
+if (packageDir === undefined) {
+  throw new Error(`cannot find the package; tried:\n  ${candidates.join('\n  ')}`);
 }
 const root = pathToFileURL(packageDir).href;
 
